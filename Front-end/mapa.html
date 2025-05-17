@@ -27,7 +27,6 @@
 
   <h2>Encontre um local para doar</h2>
 
-  <!-- Filtro de tipo de doação -->
   <label for="tipoDoacao">Filtrar por tipo de doação:</label>
   <select id="tipoDoacao" onchange="filtrarLocais()">
   <option value="todos">Todos</option>
@@ -75,12 +74,11 @@
       attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> colaboradores'
     }).addTo(map);
 
-    filtrarLocais(); // só chama filtro depois que mapa estiver carregado
+    filtrarLocais(); 
   }
 
   function filtrarLocais() {
     const tipoSelecionado = document.getElementById("tipoDoacao").value;
-    // Remove marcadores antigos
     marcadores.forEach(marker => map.removeLayer(marker));
     marcadores = [];
 
@@ -93,7 +91,6 @@
     });
   }
 
-  // Espera o DOM carregar para iniciar o mapa
   window.addEventListener("load", inicializarMapa);
 </script>
 </body>
