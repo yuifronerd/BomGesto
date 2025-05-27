@@ -1,1 +1,2 @@
-# BomGesto
+# ❤️ BomGesto
+## Tecnologias Utilizadas: 
