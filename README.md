@@ -7,8 +7,8 @@
 ![Firebase](https://img.shields.io/badge/-Firebase-FFCA28?style=flat&logo=firebase&logoColor=000)
 
 Nome Integrantes do Projeto: 
-Camila Falcão
-Mike Kenji
-Alinne Michelle
-Jão Victor Brito
-Yago Renan
+* Camila Falcão
+* Mike Kenji
+* Alinne Michelle
+* João Victor Brito
+* Yago Renan
