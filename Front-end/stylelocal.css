@@ -1,0 +1,165 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+header.hero {
+  background-color: #fdfdfd;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo p {
+  font-size: 1.5rem;
+  color: #c43a3a;
+  font-weight: bold;
+}
+
+.logo-img {
+  height: 40px;
+}
+
+.nav-menu ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-menu a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-menu a:hover {
+  color: #c43a3a;
+}
+
+.login-bottom {
+  padding: 6px 12px;
+  background-color: #c43a3a;
+  color: white !important;
+  border-radius: 8px;
+}
+
+.login-bottom:hover {
+  background-color: #a92f2f;
+}
+
+
+.title-local {
+  font-size: 24px;
+  margin: 20px 30px;
+  color: #333;
+}
+
+.container-locais {
+  display: flex;
+  gap: 2rem;
+  padding: 20px 30px;
+  flex-wrap: wrap;
+}
+
+.mapa {
+  flex: 2;
+  min-width: 300px;
+}
+
+#map {
+  width: 100%;
+  height: 400px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.info-lateral {
+  flex: 1;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filtros button {
+  padding: 8px 16px;
+  border: 1px solid #c43a3a;
+  background-color: white;
+  color: #c43a3a;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.filtros button:hover {
+  background-color: #c43a3a;
+  color: white;
+}
+
+.info-local {
+  border: 2px solid #eee;
+  border-radius: 15px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.info-local h3 {
+  color: #c43a3a;
+  margin-bottom: 10px;
+}
+
+.info-local p {
+  margin: 5px 0;
+  color: #333;
+}
+
+.botao-doar {
+  margin-top: 15px;
+  background-color: #c43a3a;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.botao-doar:hover {
+  background-color: #a92f2f;
+}
+
+@media (max-width: 768px) {
+  .container-locais {
+    flex-direction: column;
+  }
+
+  .mapa,
+  .info-lateral {
+    width: 100%;
+  }
+
+  .filtros {
+    justify-content: center;
+  }
+}

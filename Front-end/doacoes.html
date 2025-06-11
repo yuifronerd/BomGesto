@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doação</title>
+  <link rel="stylesheet" href="styledoacao.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="logo">
+      <p>BomGesto</p>
+      <img src="assets/icones/logobomgesto.png" alt="Mãos dadas" class="logo-img" />
+    </div>
+    <nav class="nav-menu">
+      <ul>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="doacoes.html">Doações</a></li>
+        <li><a href="pontuacao.html">Pontuações</a></li>
+        <li><a href="locais.html">Locais de doação</a></li>
+        <li><a class="login-bottom" href="login.html">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Apenas um click....</h1>
+    <p>Preencha as informações para fazer uma boa ação</p>
+
+    <form id="formDoacao">
+      <select id="tipo" required>
+        <option value="">Tipo de doação</option>
+        <option value="Comida">Comida</option>
+        <option value="Roupas">Roupas</option>
+        <option value="Brinquedos">Brinquedos</option>
+        <option value="Dinheiro">Dinheiro</option>
+        <option value="Outros">Outros</option>
+      </select>
+
+      <input type="text" id="nome" placeholder="Nome completo" required />
+      <input type="tel" id="telefone" placeholder="Telefone" required />
+      <input type="text" id="endereco" placeholder="Endereço" required />
+      <input type="date" id="data" placeholder="Data" required />
+      <input type="number" id="valor" step="0.01" placeholder="Valor (R$)" />
+
+      <button type="submit">Confirmar</button>
+    </form>
+  </main>
+
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, collection, doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBPAy9KdIk8e34yruaL32wyj_MJANHlN2g",
+    authDomain: "bomgesto-15634.firebaseapp.com",
+    projectId: "bomgesto-15634",
+    storageBucket: "bomgesto-15634.appspot.com",
+    messagingSenderId: "672802069001",
+    appId: "1:672802069001:web:356d0b5ab9ae09d29236d8"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  let usuario = null;
+
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      usuario = user;
+    } else {
+      window.location.href = "login.html";
+    }
+  });
+
+  document.getElementById("formDoacao").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const tipo = document.getElementById("tipo").value;
+    const nome = document.getElementById("nome").value;
+    const telefone = document.getElementById("telefone").value;
+    const endereco = document.getElementById("endereco").value;
+    const dataRetirada = document.getElementById("data").value;
+    const valor = document.getElementById("valor").value || 0;
+
+    try {
+      const uid = usuario.uid;
+      const dataHora = new Date().toISOString().replace(/[.#$/[\]]/g, "_");
+
+      // Salvar doação no Firestore
+      const doacaoRef = doc(db, `usuarios/${uid}/doacoes/${dataHora}`);
+      await setDoc(doacaoRef, {
+        tipo,
+        nome,
+        telefone,
+        endereco,
+        dataRetirada,
+        valor: parseFloat(valor)
+      });
+
+      // Atualizar pontos do usuário
+      const userRef = doc(db, `usuarios/${uid}`);
+      const userSnap = await getDoc(userRef);
+      const pontosAtuais = userSnap.exists() ? (userSnap.data().pontos || 0) : 0;
+
+      await updateDoc(userRef, {
+        pontos: pontosAtuais + 10
+      });
+
+      alert("Doação registrada com sucesso! Você ganhou 10 pontos.");
+      document.getElementById("formDoacao").reset();
+    } catch (error) {
+      console.error("Erro ao registrar doação:", error);
+      alert("Erro ao registrar a doação.");
+    }
+  });
+</script>
+</body>
+</html>
